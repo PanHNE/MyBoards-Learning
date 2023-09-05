@@ -9,6 +9,9 @@ namespace MyBoards.Entities
 
         }
         public DbSet<WorkItem> WorkItems { get; set; }
+        public DbSet<Issue> Issues { get; set; }
+        public DbSet<Task> Tasks { get; set; }
+        public DbSet<Epic> Epics { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Comment> Comments { get; set; }
@@ -20,7 +23,7 @@ namespace MyBoards.Entities
             modelBuilder.Entity<WorkItemState>(eb =>
             {
                 eb.Property(x => x.Value).IsRequired();
-                eb.Property(x => x.Value).HasMaxLength(50);
+                eb.Property(x => x.Value).HasMaxLength(60);
             });
 
             modelBuilder.Entity<WorkItem>(eb =>
@@ -31,10 +34,6 @@ namespace MyBoards.Entities
 
                 eb.Property(wi => wi.Area).HasColumnType("varchar(200)");
                 eb.Property(wi => wi.IterationPath).HasColumnName("Iteration_Path");
-                eb.Property(wi => wi.Efford).HasColumnType("decimal(5,2");
-                eb.Property(wi => wi.EndDate).HasPrecision(3);
-                eb.Property(wi => wi.Activity).HasMaxLength(200);
-                eb.Property(wi => wi.Activity).HasPrecision(14, 2);
                 eb.Property(wi => wi.Priority).HasDefaultValue(1);
 
                 eb.HasMany(w => w.Comments)
@@ -63,6 +62,22 @@ namespace MyBoards.Entities
                     });
             });
 
+            modelBuilder.Entity<Issue>(eb =>
+            {
+                eb.Property(wi => wi.Efford).HasColumnType("decimal(5,2)");
+            });
+
+            modelBuilder.Entity<Task>(eb =>
+            {
+                eb.Property(wi => wi.Activity).HasMaxLength(200);
+                eb.Property(wi => wi.Activity).HasPrecision(14, 2);
+            });
+
+            modelBuilder.Entity<Epic>(eb =>
+            {
+                eb.Property(wi => wi.EndDate).HasPrecision(3);
+            });
+
             modelBuilder.Entity<Comment>(eb =>
             {
                 eb.Property(x => x.CreatedDate).HasDefaultValueSql("getutcdate()");
@@ -72,7 +87,7 @@ namespace MyBoards.Entities
             modelBuilder.Entity<User>()
                 .HasOne(u => u.Address)
                 .WithOne(a => a.User)
-                .HasForeignKey<Address>(a => a.UserId);                
+                .HasForeignKey<Address>(a => a.UserId);
         }
     }
 }
