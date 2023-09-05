@@ -4,9 +4,9 @@ namespace MyBoards.Entities
 {
     public class MyBoardsContext : DbContext
     {
-        public MyBoardsContext(DbContextOptions<MyBoardsContext> options): base(options)
+        public MyBoardsContext(DbContextOptions<MyBoardsContext> options) : base(options)
         {
-            
+
         }
         public DbSet<WorkItem> WorkItems { get; set; }
         public DbSet<User> Users { get; set; }
@@ -16,14 +16,6 @@ namespace MyBoards.Entities
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<WorkItem>()
-                .Property(x => x.State)
-                .IsRequired();
-
-            modelBuilder.Entity<WorkItem>()
-                .Property(x => x.Area)
-                .HasColumnType("varchar(200)");
-
             modelBuilder.Entity<WorkItem>(eb =>
             {
                 eb.Property(wi => wi.State).IsRequired();
@@ -34,6 +26,14 @@ namespace MyBoards.Entities
                 eb.Property(wi => wi.Activity).HasMaxLength(200);
                 eb.Property(wi => wi.Activity).HasPrecision(14, 2);
                 eb.Property(wi => wi.Priority).HasDefaultValue(1);
+
+                eb.HasMany(w => w.Comments)
+                .WithOne(c => c.WorkItem)
+                .HasForeignKey(c => c.WorkItemId);
+
+                eb.HasOne(w => w.Author)
+                .WithMany(u => u.WorkItems)
+                .HasForeignKey(w => w.AuthorId);
             });
 
             modelBuilder.Entity<Comment>(eb =>
@@ -45,7 +45,7 @@ namespace MyBoards.Entities
             modelBuilder.Entity<User>()
                 .HasOne(u => u.Address)
                 .WithOne(a => a.User)
-                .HasForeignKey<Address>( a => a.UserId);
+                .HasForeignKey<Address>(a => a.UserId);
         }
     }
 }
