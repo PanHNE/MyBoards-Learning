@@ -31,4 +31,34 @@ if (pendingMigrations.Any())
     dbContext.Database.Migrate();
 }
 
+var users = dbContext.Users.ToList();
+if (!users.Any())
+{
+    var user1 = new User()
+    {
+        Email = "stefan@test.pl",
+        FullName = "Stefan User",
+        Address = new Address()
+        { 
+            City = "Bia³ystok",
+            Street = "Sienkiewicza"
+        }
+    };
+    
+    var user2 = new User()
+    {
+        Email = "adam@test.pl",
+        FullName = "Adam User",
+        Address = new Address()
+        { 
+            City = "Bia³ystok",
+            Street = "Pietrewicza"
+        }
+    };
+
+    dbContext.Users.AddRange(user1, user2);
+
+    dbContext.SaveChanges();
+}
+
 app.Run();
