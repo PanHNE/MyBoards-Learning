@@ -92,6 +92,22 @@ namespace MyBoards.Entities
                 .HasOne(u => u.Address)
                 .WithOne(a => a.User)
                 .HasForeignKey<Address>(a => a.UserId);
+
+            modelBuilder.Entity<WorkItemState>()
+                .HasData(
+                    new WorkItemState() { Id = 1, Value = "To Do" },
+                    new WorkItemState() { Id = 2, Value = "Doing" },
+                    new WorkItemState() { Id = 3, Value = "Done" }
+                );
+
+            modelBuilder.Entity<Tag>()
+                .HasData(
+                    new Tag() { Id = 1, Value = "Web" },
+                    new Tag() { Id = 2, Value = "UI" },
+                    new Tag() { Id = 3, Value = "Desktop" },
+                    new Tag() { Id = 4, Value = "API" },
+                    new Tag() { Id = 5, Value = "Service" }
+                );
         }
     }
 }
