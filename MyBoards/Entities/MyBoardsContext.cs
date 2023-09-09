@@ -17,6 +17,7 @@ namespace MyBoards.Entities
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<WorkItemState> WorkItemState { get; set; }
+        public DbSet<WorkItemTag> WorkItemTag { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -85,7 +86,7 @@ namespace MyBoards.Entities
                 eb.HasOne(c => c.Author)
                 .WithMany(a => a.Comments)
                 .HasForeignKey(c => c.AuthorId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.ClientCascade);
             });
 
             modelBuilder.Entity<User>()
