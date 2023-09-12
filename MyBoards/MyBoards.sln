@@ -5,7 +5,7 @@ VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBoards", "MyBoards.csproj", "{D85F8155-21BC-42A2-8205-1A0D4B85A3A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBoards.Benchmark", "..\MyBoards.Benchmark\MyBoards.Benchmark.csproj", "{AC73D916-23A5-4080-B586-4AC55A1B3EEB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBoards.Benchmark", "..\MyBoards.Benchmark\MyBoards.Benchmark.csproj", "{AC73D916-23A5-4080-B586-4AC55A1B3EEB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
