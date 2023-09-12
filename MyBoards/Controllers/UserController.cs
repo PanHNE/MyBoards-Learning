@@ -4,6 +4,7 @@ using MyBoards.Services;
 
 namespace MyBoards.Controllers
 {
+    [Route("api/user")]
     [ApiController]
     public class UserController : ControllerBase
     {
