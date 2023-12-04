@@ -22,5 +22,13 @@ namespace MyBoards.Controllers
 
             return Created("New user registered", null);
         }
+
+        [HttpPost("login")]
+        public ActionResult Login([FromBody] LoginUserDto loginUserDto)
+        {
+            string token = _accountService.GeneraterJwt(loginUserDto);
+
+            return Ok(token);
+        }
     }
 }
